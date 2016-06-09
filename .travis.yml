@@ -36,6 +36,7 @@ addons:
       - gcc-multilib
       - g++-multilib
       - libc6
+      - libc6:i386
       - libc6-dev
       - build-essential
       - libc6-dev-amd64
