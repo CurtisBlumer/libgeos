@@ -32,6 +32,7 @@ addons:
     packages:
       - gcc-multilib
       - g++-multilib
+      - libc6-dev
       - make
       - lcov
 
