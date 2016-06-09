@@ -26,7 +26,7 @@ matrix:
   fast_finish: true
   include:
     - compiler: g++
-      env: GEOS_BUILD_TOOL=autotools CFLAGS='-m64 -g -O0' CXXFLAGS='-m64 -g -O0 --coverage'
+      env: GEOS_BUILD_TOOL=autotools CFLAGS='-m64 --coverage' CXXFLAGS='-m64 --coverage'
 
 # Install operating system addons.
 # @affectOnBuild  Broken
@@ -36,11 +36,6 @@ addons:
     packages:
       - gcc-multilib
       - g++-multilib
-      - libc6
-      - libc6-dev
-      - libc6.1-dev-alpha-cross
-      - build-essential
-      - make
       - lcov
 
 
