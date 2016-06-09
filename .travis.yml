@@ -7,46 +7,89 @@
 # See the COPYING file for more information.
 #
 sudo: false
+cache:
+  - bundler
+  - composer
 
-language:
-  - cpp
-  - php
+language: cpp
 
 compiler:
     - clang
     - g++
 
-php:
-  - 5.3
-  - 5.6
-  - 7.0
-  - hhvm
-
 env:
-    - GEOS_BUILD_TOOL=autotools CFLAGS=-m64 CXXFLAGS=-m64
-    - GEOS_BUILD_TOOL=autotools CFLAGS=-m32 CXXFLAGS=-m32
+  - GEOS_BUILD_TOOL=autotools CFLAGS=-m64 CXXFLAGS=-m64
+  - GEOS_BUILD_TOOL=autotools CFLAGS=-m32 CXXFLAGS=-m32
+  - PHP_VERSION=5.4
+  - PHP_VERSION=5.5
+  - PHP_VERSION=5.6
+  - PHP_VERSION=7.0
 
 matrix:
   fast_finish: true
 
+# Install operating system addons.
+# @affectOnBuild  Broken
+#   If application return non-zero, the build is broken and stops.
 addons:
   apt:
+    source:
+      - ppa:ondrej/php # Enable PHP 5.5, 5.6, 7.0
+      - ppa:ondrej/php5-oldstable # Enable PHP 5.4
     packages:
-    - gcc-multilib
-    - g++-multilib
-    - make
-    - lcov
+      - gcc-multilib
+      - g++-multilib
+      - make
+      - lcov
 
+
+# Custom commands to run before installing your application.
+#
+# @affectOnBuild  Errored
+#   If an application returns a non-zero, the build is errored and stops.
 before_install:
+  # Install PHP
+  - sudo apt-get install php${PHP_VERSION} php-dev
+  # Install Composer
+  - sudo apt-get install php-composer
+  # Install PHPUnit with composer
+  - composer global require phpunit/phpunit --dev
+  # Install Ruby
+  - sudo apt-get install ruby
+  # Install coveralls.io upload module
   - gem install coveralls-lcov
 
-before_script: # (optional: for paranoiacs only)
-  - cd ${TRAVIS_BUILD_DIR}
-  - lcov --directory . --zerocounters
 
+  # Do the steps necessary to install your application.
+  #
+  # @affectOnBuild  Errored
+  #   If an application returns a non-zero, the build is errored and stops.
+install: true
+
+
+# Custom commands to run before running your application.
+#
+# @affectOnBuild  Errored
+#   If an application returns a non-zero, the build is errored and stops.
+before_script:
+  - lcov --directory ${TRAVIS_BUILD_DIR} --zerocounters
+
+
+# Returns a non-zero exit code, the build is failed, but continues to run
+# before being marked as failed.
 script:
   - ${TRAVIS_BUILD_DIR}/tools/ci/script.sh
 
+
+# Does not affect build results.
+after_script: true
+
+
+# Does not affect build results.
 after_success:
   - lcov --compat-libtool --directory ${TRAVIS_BUILD_DIR} --capture --output-file coverage.info
   - coveralls-lcov ${TRAVIS_BUILD_DIR}/coverage.info
+
+
+  # Does not affect build results.
+after_failure: true
