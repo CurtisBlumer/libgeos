@@ -51,7 +51,10 @@ before_install:
   # @affectOnBuild  Errored
   #   If an application returns a non-zero, the build is errored and stops.
 install:
-  - gem install coveralls-lcov
+  - |
+    if [ "${RUN_PROFILER}" == "TRUE" ]; then
+      gem install coveralls-lcov
+    fi
 
 
 # Custom commands to run before running your application.
