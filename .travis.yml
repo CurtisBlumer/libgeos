@@ -26,7 +26,7 @@ matrix:
   fast_finish: true
   include:
     - compiler: g++
-      env: GEOS_BUILD_TOOL=autotools CFLAGS='-m64 --coverage' CXXFLAGS='-m64 --coverage'
+      env: GEOS_BUILD_TOOL=autotools CFLAGS='-m64 --coverage' CXXFLAGS='-m64 --coverage' RUN_PROFILER=TRUE
 
 # Install operating system addons.
 # @affectOnBuild  Broken
@@ -61,7 +61,10 @@ install:
 # @affectOnBuild  Errored
 #   If an application returns a non-zero, the build is errored and stops.
 before_script:
-  - lcov --directory ${TRAVIS_BUILD_DIR} --zerocounters
+  - |
+    if [ "${RUN_PROFILER}" == "TRUE" ]; then
+      lcov --directory ${TRAVIS_BUILD_DIR} --zerocounters
+    fi
 
 
 # Returns a non-zero exit code, the build is failed, but continues to run
@@ -76,8 +79,11 @@ after_script: true
 
 # Does not affect build results.
 after_success:
-  - lcov --compat-libtool --directory ${TRAVIS_BUILD_DIR}/src --capture --output-file coverage.info
-  - coveralls-lcov coverage.info
+  - |
+    if [ "${RUN_PROFILER}" == "TRUE" ]; then
+      lcov --compat-libtool --directory ${TRAVIS_BUILD_DIR}/src --capture --output-file coverage.info
+      coveralls-lcov coverage.info
+    fi
 
 
   # Does not affect build results.
