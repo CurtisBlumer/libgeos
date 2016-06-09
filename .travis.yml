@@ -11,8 +11,8 @@ sudo: false
 language: cpp
 
 compiler:
-    - g++
     - clang
+    - g++
 
 env:
     - GEOS_BUILD_TOOL=autotools CFLAGS=-m64 CXXFLAGS=-m64
