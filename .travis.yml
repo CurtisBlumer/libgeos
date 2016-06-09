@@ -17,7 +17,6 @@ compiler:
 
 env:
   - GEOS_BUILD_TOOL=autotools CFLAGS=-m64 CXXFLAGS=-m64
-  - GEOS_BUILD_TOOL=autotools CFLAGS=-m32 CXXFLAGS=-m32
 
 matrix:
   fast_finish: true
@@ -27,16 +26,11 @@ matrix:
 #   If application return non-zero, the build is broken and stops.
 addons:
   apt:
-    source:
-      - sourceline: 'ppa:ondrej/php' # Enable PHP 5.5, 5.6, 7.0
     packages:
       - gcc-multilib
       - g++-multilib
       - make
       - lcov
-      - php5.6
-      - php-dev
-      - php-composer
 
 
 # Custom commands to run before installing your application.
@@ -44,19 +38,16 @@ addons:
 # @affectOnBuild  Errored
 #   If an application returns a non-zero, the build is errored and stops.
 before_install:
-  # Install PHPUnit with composer
-  - composer self-update
-  - composer global require phpunit/phpunit
   # Install coveralls.io upload module
   - gem update --system
-  - gem install coveralls-lcov
 
 
   # Do the steps necessary to install your application.
   #
   # @affectOnBuild  Errored
   #   If an application returns a non-zero, the build is errored and stops.
-install: true
+install:
+  - gem install coveralls-lcov
 
 
 # Custom commands to run before running your application.

@@ -14,6 +14,6 @@ source ${TRAVIS_BUILD_DIR}/tools/ci/common.sh
 cd ${TRAVIS_BUILD_DIR}
 ./autogen.sh
 cd -
-${TRAVIS_BUILD_DIR}/configure --enable-php --enable-coverage
+${TRAVIS_BUILD_DIR}/configure --enable-coverage
 run_make
 run_test
