@@ -16,6 +16,7 @@ compiler:
 
 env:
     - GEOS_BUILD_TOOL=autotools CFLAGS=-m64 CXXFLAGS=-m64
+    - GEOS_BUILD_TOOL=autotools CFLAGS=-m32 CXXFLAGS=-m32
 
 matrix:
   fast_finish: true
@@ -25,7 +26,12 @@ addons:
     packages:
     - gcc-multilib
     - g++-multilib
-    - cmake
     - make
 
+before_install:
+    - pip install --user cpp-coveralls
+
 script: ./tools/ci/script.sh
+
+after_success:
+  - coveralls --exclude tests --exclude tools --exclude web --gcov-options '\-lp'
