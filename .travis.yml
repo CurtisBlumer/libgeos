@@ -19,9 +19,9 @@ compiler:
     - g++
 
 env:
-  - GEOS_BUILD_TOOL=autotools CFLAGS='-m64 --coverage' CXXFLAGS='-m64 --coverage'
+  - GEOS_BUILD_TOOL=autotools CFLAGS='-m64' CXXFLAGS='-m64 --coverage'
     BUILD_TYPE=debug
-  - GEOS_BUILD_TOOL=autotools CFLAGS='-m32 --coverage' CXXFLAGS='-m32 --coverage'
+  - GEOS_BUILD_TOOL=autotools CFLAGS='-m32' CXXFLAGS='-m32 --coverage'
     BUILD_TYPE=debug
 
 matrix:
