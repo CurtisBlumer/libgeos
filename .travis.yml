@@ -19,9 +19,7 @@ compiler:
     - g++
 
 env:
-  - GEOS_BUILD_TOOL=autotools
-  - CFLAGS=-m64 -g -O0 --coverage
-  - CXXFLAGS=-m64 -g -O0 --coverage
+  - GEOS_BUILD_TOOL=autotools CFLAGS='-m64 -g -O0 --coverage' CXXFLAGS='-m64 -g -O0 --coverage'
 
 matrix:
   fast_finish: true
