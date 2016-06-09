@@ -6,7 +6,8 @@
 # by the Free Software Foundation.
 # See the COPYING file for more information.
 #
-sudo: false
+
+sudo: true
 cache:
   - bundler
   - composer
@@ -49,7 +50,7 @@ addons:
 #   If an application returns a non-zero, the build is errored and stops.
 before_install:
   # Install PHP
-  - sudo apt-get install php${PHP_VERSION} php-dev
+  - sudo apt-get install php$PHP_VERSION php-dev
   # Install Composer
   - sudo apt-get install php-composer
   # Install PHPUnit with composer
