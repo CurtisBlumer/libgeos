@@ -14,17 +14,17 @@ cache:
 
 language: cpp
 
+compiler:
+  - clang
+  - g++
+
+env:
+  - GEOS_BUILD_TOOL=autotools CFLAGS='-m64' CXXFLAGS='-m64'
+  - GEOS_BUILD_TOOL=autotools CFLAGS='-m32' CXXFLAGS='-m32'
+
 matrix:
   fast_finish: true
   include:
-    - compiler: g++
-      env: GEOS_BUILD_TOOL=autotools CFLAGS='-m64' CXXFLAGS='-m64'
-    - compiler: clange
-      env: GEOS_BUILD_TOOL=autotools CFLAGS='-m64' CXXFLAGS='-m64'
-    - compiler: g++
-      env: GEOS_BUILD_TOOL=autotools CFLAGS='-m32' CXXFLAGS='-m32'
-    - compiler: clange
-      env: GEOS_BUILD_TOOL=autotools CFLAGS='-m32' CXXFLAGS='-m32'
     - compiler: g++
       env: GEOS_BUILD_TOOL=autotools CFLAGS='-m64 -g -o0 --coverage' CXXFLAGS='-m64 -g -o0 --coverage'
 
