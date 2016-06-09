@@ -35,7 +35,10 @@ addons:
     packages:
       - gcc-multilib
       - g++-multilib
-      - libc6-dev
+      - build-essential
+      - libc6-dev-amd64
+      - libc6-dev-x32
+      - libc6-dev-i386
       - make
       - lcov
 
