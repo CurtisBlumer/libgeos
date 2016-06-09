@@ -14,21 +14,17 @@ cache:
 
 language: cpp
 
-compiler:
-  - clang
-  - g++
-
 matrix:
   fast_finish: true
   include:
     - compiler: clange
       env:
         - GEOS_BUILD_TOOL=autotools CFLAGS='-m64' CXXFLAGS='-m64' BUILD_TYPE=release
-        - GEOS_BUILD_TOOL=autotools CFLAGS='-m32' CXXFLAGS='-m32' BUILD_TYPE=release
+          GEOS_BUILD_TOOL=autotools CFLAGS='-m32' CXXFLAGS='-m32' BUILD_TYPE=release
     - compiler: g++
       env:
         - GEOS_BUILD_TOOL=autotools CFLAGS='-m64 -g -o0 --coverage' CXXFLAGS='-m64 -g -o0 --coverage' BUILD_TYPE=debug
-        - GEOS_BUILD_TOOL=autotools CFLAGS='-m32 -g -o0 --coverage' CXXFLAGS='-m32 -g -o0 --coverage' BUILD_TYPE=debug
+          GEOS_BUILD_TOOL=autotools CFLAGS='-m32 -g -o0 --coverage' CXXFLAGS='-m32 -g -o0 --coverage' BUILD_TYPE=debug
 
 # Install operating system addons.
 # @affectOnBuild  Broken
