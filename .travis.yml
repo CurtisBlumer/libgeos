@@ -37,6 +37,7 @@ addons:
       - g++-multilib
       - libc6
       - libc6-dev
+      - libc6.1-dev-alpha-cross
       - build-essential
       - make
       - lcov
